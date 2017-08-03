@@ -44,7 +44,7 @@ exports.config = {
         // 5 instance gets started at a time.
         maxInstances: 5,
         //
-        browserName: 'phantomjs' // options: chrome || firefox || phantomjs
+        browserName: 'chrome' // options: chrome || firefox || phantomjs
     }],
     //
     // ===================
@@ -58,7 +58,7 @@ exports.config = {
     sync: true,
     //
     // Level of logging verbosity: silent | verbose | command | data | result | error
-    logLevel: 'verbose',
+    logLevel: 'silent',
     //
     // Enables colors for log output.
     coloredLogs: true,
@@ -120,8 +120,8 @@ exports.config = {
     // See the full list at http://mochajs.org/
     mochaOpts: {
         ui: 'bdd',
-        compilers: ['js:babel-register'],
-        require: ['./test/helpers/common.js']
+        compilers: ['ts:ts-node/register'],
+        requires: ['./test/helpers/common.js']
     },
     //
     // =====
@@ -138,7 +138,9 @@ exports.config = {
     //
     // Gets executed before test execution begins. At this point you can access all global
     // variables, such as `browser`. It is the perfect place to define custom commands.
-    before: function (capabilities, specs) {
+    before(capabilities, specs) {
+        require('ts-node/register');
+
         var sinon = require('sinon');
         // http://sinonjs.org/
         var chai = require('chai');
